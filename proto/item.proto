@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "pb/";
+
+package proto;
+
+message Item {
+    uint64 id = 1;
+    string name = 2;
+    uint32 price = 3;
+    uint32 quantity = 4;
+}
+
+service Items {
+    rpc GetItems (Empty) returns (stream ItemInfo);
+    rpc GetItem (Id) returns (ItemInfo);
+    rpc CreateItem(ItemInfo) returns (Id);
+    rpc UpdateItem(ItemInfo) returns (Status);
+    rpc DeleteItem(Id) returns (Status);
+}
+
+message Empty {}
+
+message Id {
+    uint64 id = 1;
+}
+
+message ItemInfo {
+    Item item = 1;
+}
+
+message Status {
+    string status = 1;
+}

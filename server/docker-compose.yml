@@ -1,0 +1,15 @@
+version: "3.3"
+
+services:
+  item-db:
+    container_name: item-db
+    restart: unless-stopped
+    image: kartoza/postgis:latest
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - ${DB_PORT}:5432
+    volumes:
+    - ./db/schema/init.sql:/docker-entrypoint-initdb.d/init.sql
